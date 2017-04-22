@@ -1,8 +1,12 @@
 defmodule HelloPhoenix.PageController do
   use HelloPhoenix.Web, :controller
 
-  def index(conn, params) do
-    render conn, "index.text", message: params["message"]
+  def index(conn, _params) do
+    conn
+    |> put_status(:not_found)
+    |> render(HelloPhoenix.ErrorView, "404.html")
+
+    # render conn, "index.text", message: params["message"]
 
     # render conn, :index
 
