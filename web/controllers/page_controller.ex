@@ -2,6 +2,10 @@ defmodule HelloPhoenix.PageController do
   use HelloPhoenix.Web, :controller
 
   def index(conn, _params) do
+    pages = [%{title: "foo"}, %{title: "bar"}]
+
+    render conn, "index.json", pages: pages
+
     # redirect conn, external: "http://elixir-lang.org"
 
     # redirect conn, to: "/redirect_test"
@@ -13,7 +17,7 @@ defmodule HelloPhoenix.PageController do
 
     # render conn, "index.text", message: params["message"]
 
-    render conn, :index
+    # render conn, :index
 
     # conn
     # |> put_layout("admin.html")
@@ -25,6 +29,12 @@ defmodule HelloPhoenix.PageController do
 
     # |> put_layout(false)
     # |> render "index.html"
+  end
+
+  def show(conn, _params) do
+    page = %{title: "foo"}
+
+    render conn, "index.json", page: page
   end
 
   # used with: #=> redirect conn, to: "/redirect_test"
