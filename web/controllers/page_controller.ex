@@ -37,6 +37,10 @@ defmodule HelloPhoenix.PageController do
     render conn, "index.json", page: page
   end
 
+  def test(conn, _params) do
+    render conn, "test.html"
+  end
+
   # used with: #=> redirect conn, to: "/redirect_test"
   # or with: #=> redirect conn, to: redirect_test_path(conn, :redirect_test)
   # def redirect_test(conn, _params) do
