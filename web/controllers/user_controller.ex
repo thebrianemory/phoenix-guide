@@ -4,7 +4,7 @@ defmodule HelloPhoenix.UserController do
   alias HelloPhoenix.User
 
   def index(conn, _params) do
-    users = User |> Repo.all |> Repo.preload([:videos])
+    users = User |> Repo.all #|> Repo.preload([:videos])
     render(conn, "index.html", users: users)
   end
 
