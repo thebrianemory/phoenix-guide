@@ -62,4 +62,8 @@ defmodule HelloPhoenix.ModelCase do
     |> Ecto.Changeset.traverse_errors(&HelloPhoenix.ErrorHelpers.translate_error/1)
     |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
   end
+
+  def long_string(length) do
+    Enum.reduce (1..length), "", fn _, acc -> acc <> "a" end
+  end
 end
