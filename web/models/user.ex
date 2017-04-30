@@ -20,8 +20,8 @@ defmodule HelloPhoenix.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :email, :bio, :number_of_pets])
-    |> validate_required([:name, :email, :bio])
+    |> cast(params, [:name, :email])
+    |> validate_required([:name, :email])
     |> validate_length(:bio, min: 2)
     |> validate_length(:bio, max: 140)
     |> validate_format(:email, ~r/@/)

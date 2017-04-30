@@ -11,6 +11,7 @@ defmodule HelloPhoenix.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    resources "/users", HelloPhoenix.UserController
   end
 
   scope "/", HelloPhoenix do
@@ -21,11 +22,13 @@ defmodule HelloPhoenix.Router do
     get "/hello/:messenger", HelloController, :show
     get "/redirect_test", PageController, :redirect_test, as: :redirect_test
     get "/test", PageController, :test
-    resources "/users", UserController
+
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", HelloPhoenix do
-  #   pipe_through :api
-  # end
+  scope "/api", HelloPhoenix do
+    pipe_through :api
+
+    resources "/things", ThingController, except: [:new, :edit]
+  end
 end

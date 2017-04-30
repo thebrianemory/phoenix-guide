@@ -4,8 +4,8 @@ defmodule HelloPhoenix.UserController do
   alias HelloPhoenix.User
 
   def index(conn, _params) do
-    users = User |> Repo.all #|> Repo.preload([:videos])
-    render(conn, "index.html", users: users)
+    users = Repo.all(User)
+    render(conn, "index.json", users: users)
   end
 
   def new(conn, _params) do
@@ -19,7 +19,6 @@ defmodule HelloPhoenix.UserController do
     case Repo.insert(changeset) do
       {:ok, _user} ->
         conn
-        |> put_flash(:info, "User created successfully.")
         |> redirect(to: user_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -27,8 +26,9 @@ defmodule HelloPhoenix.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
-    render(conn, "show.html", user: user)
+    case Repo.get(User, id) do
+      user -> render conn, "show.json", user: user
+    end
   end
 
   def edit(conn, %{"id" => id}) do
@@ -44,7 +44,6 @@ defmodule HelloPhoenix.UserController do
     case Repo.update(changeset) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "User updated successfully.")
         |> redirect(to: user_path(conn, :show, user))
       {:error, changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
@@ -59,7 +58,6 @@ defmodule HelloPhoenix.UserController do
     Repo.delete!(user)
 
     conn
-    |> put_flash(:info, "User deleted successfully.")
     |> redirect(to: user_path(conn, :index))
   end
 end
