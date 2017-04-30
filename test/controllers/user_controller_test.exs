@@ -43,7 +43,15 @@ defmodule HelloPhoenix.UserControllerTest do
       assert response == expected
     end
 
-    test "Returns with a message indicating user not found"
+    test "Returns with a message indicating user not found" do
+      response = build_conn
+      |> get(user_path(build_conn, :show, 300))
+      |> json_response(404)
+
+      expected = %{ "error" => "User not found."}
+
+      assert response == expected
+    end
   end
 
   describe "update/2" do

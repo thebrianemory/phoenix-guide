@@ -27,6 +27,7 @@ defmodule HelloPhoenix.UserController do
 
   def show(conn, %{"id" => id}) do
     case Repo.get(User, id) do
+      nil -> conn |> put_status(404) |> render("error.json")
       user -> render conn, "show.json", user: user
     end
   end

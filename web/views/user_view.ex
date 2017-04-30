@@ -9,6 +9,10 @@ defmodule HelloPhoenix.UserView do
     %{data: render_one(user, HelloPhoenix.UserView, "user.json")}
   end
 
+  def render("error.json", _assigns) do
+    %{error: "User not found."}
+  end
+
   def render("user.json", %{user: user}) do
     %{name: user.name, email: user.email}
   end
